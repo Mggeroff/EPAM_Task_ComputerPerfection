@@ -1,4 +1,4 @@
-package entity;
+package edu.epam.entity;
 
 public enum Parts {
     CPU(50),

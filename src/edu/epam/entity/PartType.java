@@ -1,6 +1,6 @@
 package edu.epam.entity;
 
-public enum Parts {
+public enum PartType {
     CPU(50),
     RAM_MODULES(20),
     GRAPHICS_CARD(100),
@@ -14,7 +14,7 @@ public enum Parts {
 
     private double price;
 
-    Parts(double price) {
+    PartType(double price) {
         this.price = price;
     }
 

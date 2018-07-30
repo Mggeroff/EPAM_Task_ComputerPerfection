@@ -1,14 +1,15 @@
 package edu.epam.entity;
 
 public class Order {
-    private final int orderNumber;
-    private int clientId;
-    private int numberOfComputers = 0;
-    private String computerName;
-    private Computer computer;
     private static final int MIN_SIZE = 4;
     private static final int MAX_SIZE = 20;
+    private int orderNumber;
+    private int clientId;
     private final String DEFAULT_NAME = "Client " + clientId;
+    private int numberOfComputers;
+    private String computerName;
+    private Computer computer;
+    private int componentCount = 0;
     //    private LocalTime localTime;
 
     public Order(int clientId, int numberOfComputers, String computerName) {
@@ -26,13 +27,10 @@ public class Order {
         computer = new Computer();
     }
 
-//    public void setComputer(Computer computer) {
-//        this.computer = computer;
-//    }
 
-
-    public Computer addComputerCase(Parts part) {
+    public Computer addComputerCase(PartType part) {
         computer.addComponent(part);
+        componentCount++;
         return this.computer;
     }
 
@@ -54,6 +52,21 @@ public class Order {
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n"
+                               + "**************************\n"
+                               + "Заказ: " + orderNumber + "\n"
+                               + "Клиент: " + clientId + "\n");
+        builder.append("Название: " + computerName + "\n");
+        builder.append("-------------------------" + "\n");
+        for (int i = 0; i < componentCount; i++) {
+            builder.append(PartType.values());
+        }
+        builder.append("-------------------------" + "\n");
+        builder.append("Всего: " + getComputerPrice() + "\n");
+        builder.append("Количество: " + numberOfComputers + "\n");
+        builder.append("-------------------------" + "\n");
+        builder.append("Общая сумма: " + getComputerPrice() * numberOfComputers + "\n");
+        return builder.toString();
     }
 }

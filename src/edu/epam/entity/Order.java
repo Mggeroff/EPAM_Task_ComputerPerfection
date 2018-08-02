@@ -1,30 +1,18 @@
 package edu.epam.entity;
 
+import java.time.LocalTime;
+import java.util.List;
+
 public class Order {
-    private static final int MIN_SIZE = 4;
-    private static final int MAX_SIZE = 20;
     private int orderNumber;
     private int clientId;
-    private final String DEFAULT_NAME = "Client " + clientId;
-    private int numberOfComputers;
-    private String computerName;
     private Computer computer;
     private int componentCount = 0;
-    //    private LocalTime localTime;
+    private LocalTime localTime;
 
-    public Order(int clientId, int numberOfComputers, String computerName) {
-        if (computerName == null) {
-            // throw exception
-        }
+    public Order(int clientId, String computerName, int numberOfComputers) {
         this.clientId = clientId;
-        this.computerName = computerName;
-        if (computerName.length() < MIN_SIZE || computerName.length() > MAX_SIZE) {
-            this.computerName = DEFAULT_NAME;
-        } else {
-            this.numberOfComputers = numberOfComputers;
-        }
-        this.orderNumber = 551784;
-        computer = new Computer();
+        computer = new Computer(computerName, numberOfComputers);
     }
 
 
@@ -36,6 +24,10 @@ public class Order {
 
     public int getComputerPrice() {
         return this.computer.getPrice();
+    }
+
+    public List<String> getComputerPartName() {
+        return this.computer.getPartsNames();
     }
 
     public void changeNumberOfOrderedComputers(int newNumber) {

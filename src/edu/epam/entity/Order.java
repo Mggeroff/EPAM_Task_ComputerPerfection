@@ -1,64 +1,73 @@
 package edu.epam.entity;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
+import java.util.Random;
 
 public class Order {
-    private int orderNumber;
-    private int clientId;
+    public static final int MIN_ORDER_LENGTH = 10000;
+    public static final int MAX_ORDER_LENGTH = 100000;
+    private static final String DELIMETER = "*************************";
+    private final int orderNumber;
+    private final int clientId;
     private Computer computer;
-    private int componentCount = 0;
     private LocalTime localTime;
+    private List<Computer> computers = new ArrayList<>();
 
     public Order(int clientId, String computerName, int numberOfComputers) {
         this.clientId = clientId;
-        computer = new Computer(computerName, numberOfComputers);
+        Random random = new Random();
+        orderNumber = MIN_ORDER_LENGTH + random.nextInt(MAX_ORDER_LENGTH - MIN_ORDER_LENGTH);
+        computer = new Computer(computerName, numberOfComputers, orderNumber);
+        addComputers(computer, numberOfComputers);
     }
 
+    private void addComputers(Computer computer, int numberOfComputers) {
+        for (int i = 0; i < numberOfComputers; i++) {
+            computers.add(computer);
+        }
+    }
 
-    public Computer addComputerCase(PartType part) {
-        computer.addComponent(part);
-        componentCount++;
+    public Computer addComputerCase(ComputerCase computerCase) {
+        this.computer.setComputerCase(computerCase);
         return this.computer;
     }
 
-    public int getComputerPrice() {
-        return this.computer.getPrice();
-    }
-
-    public List<String> getComputerPartName() {
-        return this.computer.getPartsNames();
+    public int getOrderNumber() {
+        return orderNumber;
     }
 
     public void changeNumberOfOrderedComputers(int newNumber) {
-        numberOfComputers = newNumber;
     }
 
     public void changeComputerName(String computerName) {
-        this.computerName = computerName;
     }
 
     public void showInfo() {
-        System.out.println("[" + orderNumber + " : " + clientId + " : " + computerName + " : " + numberOfComputers + "]");
+        System.out.println("[" + orderNumber + " : "
+                                   + clientId + " : "
+                                   + computer.getComputerName() + " : "
+                                   + computer.getNumberOfComputers() + " : "
+                                   + computer.getComputerPrice()
+                                   + "]");
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("\n"
-                               + "**************************\n"
-                               + "Заказ: " + orderNumber + "\n"
-                               + "Клиент: " + clientId + "\n");
-        builder.append("Название: " + computerName + "\n");
-        builder.append("-------------------------" + "\n");
-        for (int i = 0; i < componentCount; i++) {
-            builder.append(PartType.values());
+        try (Formatter formatter = new Formatter()) {
+            int finalCost = 0;
+            formatter.format("%s%n", DELIMETER);
+            formatter.format("%s%d%n", "Заказ: ", getOrderNumber());
+            formatter.format("%s%d%n", "Клиент: ", clientId);
+            for (Computer computer : computers) {
+                formatter.format("%s", computer.toString());
+            }
+            finalCost += computer.getComputerPrice() * computer.getNumberOfComputers();
+            formatter.format("%-20s%10d%2s%n", "Общая сумма:", finalCost, "$");
+            formatter.format("%-20s", DELIMETER);
+            return formatter.toString();
         }
-        builder.append("-------------------------" + "\n");
-        builder.append("Всего: " + getComputerPrice() + "\n");
-        builder.append("Количество: " + numberOfComputers + "\n");
-        builder.append("-------------------------" + "\n");
-        builder.append("Общая сумма: " + getComputerPrice() * numberOfComputers + "\n");
-        return builder.toString();
     }
 }

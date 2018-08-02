@@ -1,25 +1,30 @@
 package edu.epam.entity;
 
 import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.Iterator;
 import java.util.List;
 
 public class Computer implements ComputerComponentAddition {
     private static final int MIN_SIZE = 4;
     private static final int MAX_SIZE = 20;
+    private static final int MAX_NUMBER_OF_COMPONENTS = 8;
+    private static final String VALIDATE_NAME = "^[a-zA-Z ]+$";
     private static final String DEFAULT_NAME = "Client ";
+    private static final String DELIMETER = "----------------------------------";
 
-    private List<PartType> components = new ArrayList<>();
+    private int price;
     private String computerName;
     private int numberOfComputers;
-    private int price;
+    private List<PartType> components = new ArrayList<>();
+    private ComputerCase computerCase;
 
-    public Computer(String computerName, int numberOfComputers) {
-        if (computerName.length() < MIN_SIZE || computerName.length() > MAX_SIZE) {
-            this.computerName = DEFAULT_NAME + clientId;
+    public Computer(String computerName, int numberOfComputers, int orderNumber) {
+        if (computerName.matches(VALIDATE_NAME) && computerName.length() <= MAX_SIZE && computerName.length() >= MIN_SIZE) {
+            this.computerName = computerName;
         } else {
-            this.numberOfComputers = numberOfComputers;
+            this.computerName = DEFAULT_NAME + orderNumber;
         }
-        this.computerName = computerName;
         this.numberOfComputers = numberOfComputers;
     }
 
@@ -30,16 +35,40 @@ public class Computer implements ComputerComponentAddition {
         return this;
     }
 
-    public int getPrice() {
+    public void setComputerCase(ComputerCase computerCase) {
+        price += computerCase.getPrice();
+        this.computerCase = computerCase;
+    }
+
+    @Override
+    public String toString() {
+        try (Formatter formatter = new Formatter()) {
+            formatter.format("%s%s%n", "Название: ", computerName);
+            formatter.format("%s%n", DELIMETER);
+            formatter.format("%-20s%10s%2s%n", computerCase.getCaseName(), computerCase.getPrice(), "$");
+            for (Iterator<PartType> i = components.iterator(); i.hasNext(); ) {
+                PartType partType = i.next();
+                formatter.format("%-20s%10s%2s%n", partType.getPartName(), partType.getPrice(), "$");
+            }
+            formatter.format("%s%n", DELIMETER);
+            formatter.format("%-20s%10s%2s%n", "Всего:", price, "$");
+            formatter.format("%-20s%12s%n", "Кол-во:", numberOfComputers);
+            formatter.format("%s%n", DELIMETER);
+            return formatter.toString();
+        }
+    }
+
+
+    public int getComputerPrice() {
         return price;
     }
 
-//    public List<String> getPartsNames() {
-//        for (PartType component : components) {
-//            parts.add(component.getPartName());
-//        }
-//
-//        return parts;
-//    }
+    public String getComputerName() {
+        return computerName;
+    }
+
+    public int getNumberOfComputers() {
+        return numberOfComputers;
+    }
 }
 

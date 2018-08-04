@@ -9,7 +9,7 @@ import java.util.Random;
 public class Order {
     public static final int MIN_ORDER_LENGTH = 10000;
     public static final int MAX_ORDER_LENGTH = 100000;
-    private static final String DELIMETER = "*************************";
+    private static final String DELIMITER = "********************************";
     private final int orderNumber;
     private final int clientId;
     private Computer computer;
@@ -58,15 +58,13 @@ public class Order {
     public String toString() {
         try (Formatter formatter = new Formatter()) {
             int finalCost = 0;
-            formatter.format("%s%n", DELIMETER);
+            formatter.format("%s%n", DELIMITER);
             formatter.format("%s%d%n", "Заказ: ", getOrderNumber());
             formatter.format("%s%d%n", "Клиент: ", clientId);
-            for (Computer computer : computers) {
-                formatter.format("%s", computer.toString());
-            }
+            formatter.format("%s", computer.toString());
             finalCost += computer.getComputerPrice() * computer.getNumberOfComputers();
             formatter.format("%-20s%10d%2s%n", "Общая сумма:", finalCost, "$");
-            formatter.format("%-20s", DELIMETER);
+            formatter.format("%-20s", DELIMITER);
             return formatter.toString();
         }
     }

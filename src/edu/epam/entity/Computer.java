@@ -11,7 +11,7 @@ public class Computer implements ComputerComponentAddition {
     private static final int MAX_NUMBER_OF_COMPONENTS = 8;
     private static final String VALIDATE_NAME = "^[a-zA-Z ]+$";
     private static final String DEFAULT_NAME = "Client ";
-    private static final String DELIMETER = "----------------------------------";
+    private static final String DELIMETER = "--------------------------------";
 
     private int price;
     private String computerName;

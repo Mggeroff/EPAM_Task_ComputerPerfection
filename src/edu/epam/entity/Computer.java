@@ -11,7 +11,7 @@ public class Computer implements ComputerComponentAddition {
     private static final int MAX_NUMBER_OF_COMPONENTS = 8;
     private static final String VALIDATE_NAME = "^[a-zA-Z ]+$";
     private static final String DEFAULT_NAME = "Client ";
-    private static final String DELIMETER = "--------------------------------";
+    private static final String DELIMITER = "--------------------------------";
 
     private int price;
     private String computerName;
@@ -35,7 +35,7 @@ public class Computer implements ComputerComponentAddition {
         return this;
     }
 
-    public void setComputerCase(ComputerCase computerCase) {
+    protected void setComputerCase(ComputerCase computerCase) {
         price += computerCase.getPrice();
         this.computerCase = computerCase;
     }
@@ -44,16 +44,16 @@ public class Computer implements ComputerComponentAddition {
     public String toString() {
         try (Formatter formatter = new Formatter()) {
             formatter.format("%s%s%n", "Название: ", computerName);
-            formatter.format("%s%n", DELIMETER);
+            formatter.format("%s%n", DELIMITER);
             formatter.format("%-20s%10s%2s%n", computerCase.getCaseName(), computerCase.getPrice(), "$");
             for (Iterator<PartType> i = components.iterator(); i.hasNext(); ) {
                 PartType partType = i.next();
                 formatter.format("%-20s%10s%2s%n", partType.getPartName(), partType.getPrice(), "$");
             }
-            formatter.format("%s%n", DELIMETER);
+            formatter.format("%s%n", DELIMITER);
             formatter.format("%-20s%10s%2s%n", "Всего:", price, "$");
             formatter.format("%-20s%12s%n", "Кол-во:", numberOfComputers);
-            formatter.format("%s%n", DELIMETER);
+            formatter.format("%s%n", DELIMITER);
             return formatter.toString();
         }
     }

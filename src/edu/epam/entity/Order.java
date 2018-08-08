@@ -65,6 +65,10 @@ public class Order {
             finalCost += computer.getComputerPrice() * computer.getNumberOfComputers();
             formatter.format("%-20s%10d%2s%n", "Общая сумма:", finalCost, "$");
             formatter.format("%-20s", DELIMITER);
+
+            CheckOutPrinter checkOutPrinter = new CheckOutPrinter();
+            checkOutPrinter.invoiceToFile(formatter, orderNumber);
+
             return formatter.toString();
         }
     }

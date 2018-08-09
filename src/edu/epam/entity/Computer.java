@@ -1,18 +1,22 @@
 package edu.epam.entity;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.List;
 
 public class Computer implements ComputerComponentAddition {
+    private static final Logger logger = LogManager.getLogger();
     private static final int MIN_SIZE = 4;
     private static final int MAX_SIZE = 20;
+    // TODO: check it
     private static final int MAX_NUMBER_OF_COMPONENTS = 8;
     private static final String VALIDATE_NAME = "^[a-zA-Z ]+$";
     private static final String DEFAULT_NAME = "Client ";
     private static final String DELIMITER = "--------------------------------";
-
     private int price;
     private String computerName;
     private int numberOfComputers;
@@ -30,6 +34,10 @@ public class Computer implements ComputerComponentAddition {
 
     @Override
     public Computer addComponent(PartType component) {
+        if (components.size() > MAX_NUMBER_OF_COMPONENTS) {
+            // TODO: refactor this to throw exception when the limit is reached
+            logger.info("Too much components");
+        }
         components.add(component);
         price += component.getPrice();
         return this;

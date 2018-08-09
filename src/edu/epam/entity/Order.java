@@ -4,22 +4,21 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
-import java.util.Random;
 
 public class Order {
-    public static final int MIN_ORDER_LENGTH = 10000;
-    public static final int MAX_ORDER_LENGTH = 100000;
     private static final String DELIMITER = "********************************";
     private final int orderNumber;
+    // TODO: use generics.
     private final int clientId;
     private Computer computer;
+    // TODO: Add local time to order.
     private LocalTime localTime;
     private List<Computer> computers = new ArrayList<>();
 
     public Order(int clientId, String computerName, int numberOfComputers) {
         this.clientId = clientId;
-        Random random = new Random();
-        orderNumber = MIN_ORDER_LENGTH + random.nextInt(MAX_ORDER_LENGTH - MIN_ORDER_LENGTH);
+        IdGenerator idGenerator = new IdGenerator();
+        orderNumber = idGenerator.generateOrderId();
         computer = new Computer(computerName, numberOfComputers, orderNumber);
         addComputers(computer, numberOfComputers);
     }

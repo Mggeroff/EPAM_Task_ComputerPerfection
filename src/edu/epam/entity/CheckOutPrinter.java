@@ -8,10 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Formatter;
 
-public class CheckOutPrinter {
+public class CheckOutPrinter<T> {
     private static Logger logger = LogManager.getLogger();
 
-    public void invoiceToFile(Formatter formatter, int orderNumber) {
+    public void invoiceToFile(Formatter formatter, T orderNumber) {
         try (Formatter output = new Formatter(new FileOutputStream("./invoices/" + orderNumber + ".txt"))) {
             output.format(formatter.toString());
         } catch (FileNotFoundException ex) {

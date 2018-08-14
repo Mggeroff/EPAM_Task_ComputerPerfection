@@ -12,7 +12,6 @@ public class Computer implements ComputerComponentAddition {
     private static final Logger logger = LogManager.getLogger();
     private static final int MIN_SIZE = 4;
     private static final int MAX_SIZE = 20;
-    // TODO: check it
     private static final int MAX_NUMBER_OF_COMPONENTS = 8;
     private static final String VALIDATE_NAME = "^[a-zA-Z ]+$";
     private static final String DEFAULT_NAME = "Client ";
@@ -48,6 +47,14 @@ public class Computer implements ComputerComponentAddition {
         this.computerCase = computerCase;
     }
 
+    void changeName(String updatedName) {
+        this.computerName = updatedName;
+    }
+
+    public void changeAmount(int updatedAmount) {
+        this.numberOfComputers = updatedAmount;
+    }
+
     @Override
     public String toString() {
         try (Formatter formatter = new Formatter()) {
@@ -78,5 +85,7 @@ public class Computer implements ComputerComponentAddition {
     public int getNumberOfComputers() {
         return numberOfComputers;
     }
+
+
 }
 

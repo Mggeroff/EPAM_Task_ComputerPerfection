@@ -8,18 +8,25 @@ import java.util.List;
 public class Order {
     private static final String DELIMITER = "********************************";
     private final int orderNumber;
-    // TODO: use generics.
     private final int clientId;
     private Computer computer;
     // TODO: Add local time to order.
     private LocalTime localTime;
     private List<Computer> computers = new ArrayList<>();
 
+    public Order(String computerName, int numberOfComputers) {
+        IdGenerator idGenerator = new IdGenerator();
+        this.clientId = idGenerator.generateClientId();
+        this.orderNumber = idGenerator.generateOrderId();
+        this.computer = new Computer(computerName, numberOfComputers, orderNumber);
+        addComputers(computer, numberOfComputers);
+    }
+
     public Order(int clientId, String computerName, int numberOfComputers) {
         this.clientId = clientId;
         IdGenerator idGenerator = new IdGenerator();
-        orderNumber = idGenerator.generateOrderId();
-        computer = new Computer(computerName, numberOfComputers, orderNumber);
+        this.orderNumber = idGenerator.generateOrderId();
+        this.computer = new Computer(computerName, numberOfComputers, orderNumber);
         addComputers(computer, numberOfComputers);
     }
 
@@ -39,9 +46,11 @@ public class Order {
     }
 
     public void changeNumberOfOrderedComputers(int newNumber) {
+        this.computer.changeAmount(newNumber);
     }
 
     public void changeComputerName(String computerName) {
+        this.computer.changeName(computerName);
     }
 
     public void showInfo() {

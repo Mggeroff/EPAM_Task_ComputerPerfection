@@ -8,7 +8,7 @@ import java.util.Formatter;
 import java.util.Iterator;
 import java.util.List;
 
-public class Computer implements ComputerComponentAddition {
+public class Computer {
     private static final Logger logger = LogManager.getLogger();
     private static final int MIN_SIZE = 4;
     private static final int MAX_SIZE = 20;
@@ -20,7 +20,7 @@ public class Computer implements ComputerComponentAddition {
     private String computerName;
     private int numberOfComputers;
     private List<PartType> components = new ArrayList<>();
-    private ComputerCase computerCase;
+    private ComputerCaseType computerCaseType;
 
     public Computer(String computerName, int numberOfComputers, int orderNumber) {
         if (computerName.matches(VALIDATE_NAME) && computerName.length() <= MAX_SIZE && computerName.length() >= MIN_SIZE) {
@@ -31,7 +31,6 @@ public class Computer implements ComputerComponentAddition {
         this.numberOfComputers = numberOfComputers;
     }
 
-    @Override
     public Computer addComponent(PartType component) {
         if (components.size() > MAX_NUMBER_OF_COMPONENTS) {
             // TODO: refactor this to throw exception when the limit is reached
@@ -42,9 +41,9 @@ public class Computer implements ComputerComponentAddition {
         return this;
     }
 
-    protected void setComputerCase(ComputerCase computerCase) {
-        price += computerCase.getPrice();
-        this.computerCase = computerCase;
+    protected void setComputerCaseType(ComputerCaseType computerCaseType) {
+        price += computerCaseType.getPrice();
+        this.computerCaseType = computerCaseType;
     }
 
     void changeName(String updatedName) {
@@ -60,7 +59,7 @@ public class Computer implements ComputerComponentAddition {
         try (Formatter formatter = new Formatter()) {
             formatter.format("%s%s%n", "Название: ", computerName);
             formatter.format("%s%n", DELIMITER);
-            formatter.format("%-20s%10s%2s%n", computerCase.getCaseName(), computerCase.getPrice(), "$");
+            formatter.format("%-20s%10s%2s%n", computerCaseType.getCaseName(), computerCaseType.getPrice(), "$");
             for (Iterator<PartType> i = components.iterator(); i.hasNext(); ) {
                 PartType partType = i.next();
                 formatter.format("%-20s%10s%2s%n", partType.getPartName(), partType.getPrice(), "$");

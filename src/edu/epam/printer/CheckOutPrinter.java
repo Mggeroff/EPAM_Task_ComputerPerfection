@@ -1,4 +1,4 @@
-package edu.epam.entity;
+package edu.epam.printer;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

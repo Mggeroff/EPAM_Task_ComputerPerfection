@@ -1,4 +1,4 @@
-package edu.epam.entity;
+package edu.epam.reader;
 
 public class InvoiceReader {
 }

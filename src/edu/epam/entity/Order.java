@@ -1,5 +1,8 @@
 package edu.epam.entity;
 
+import edu.epam.printer.CheckOutPrinter;
+import edu.epam.util.IdGenerator;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -36,8 +39,8 @@ public class Order {
         }
     }
 
-    public Computer addComputerCase(ComputerCase computerCase) {
-        this.computer.setComputerCase(computerCase);
+    public Computer addComputerCase(ComputerCaseType computerCaseType) {
+        this.computer.setComputerCaseType(computerCaseType);
         return this.computer;
     }
 

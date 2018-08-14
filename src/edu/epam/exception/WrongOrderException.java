@@ -1,4 +1,4 @@
-package edu.epam.exceptions;
+package edu.epam.exception;
 
 public class WrongOrderException extends Exception {
     public WrongOrderException() {

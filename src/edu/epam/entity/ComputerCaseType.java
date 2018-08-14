@@ -1,13 +1,13 @@
 package edu.epam.entity;
 
-public enum ComputerCase {
+public enum ComputerCaseType {
     PC_BLOCK(20, "Case: PC-Block"),
     MINI_PC_BLOCK(50, "Case: Mini PC-Block");
 
     private double price;
     private String caseName;
 
-    ComputerCase(double price, String caseName) {
+    ComputerCaseType(double price, String caseName) {
         this.price = price;
         this.caseName = caseName;
     }

@@ -1,6 +1,6 @@
 package edu.epam.runner;
 
-import edu.epam.entity.ComputerCase;
+import edu.epam.entity.ComputerCaseType;
 import edu.epam.entity.Order;
 import edu.epam.entity.PartType;
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         Order gameComputer = new Order(47123, "Game Computer", 3);
-        gameComputer.addComputerCase(ComputerCase.PC_BLOCK)
+        gameComputer.addComputerCase(ComputerCaseType.PC_BLOCK)
                 .addComponent(PartType.MOTHERBOARD)
                 .addComponent(PartType.CPU)
                 .addComponent(PartType.GRAPHICS_CARD)
@@ -21,7 +21,7 @@ public class Main {
         logger.info(gameComputer.toString());
 
         Order standardPc = new Order(43712, "Standard PC", 1);
-        standardPc.addComputerCase(ComputerCase.MINI_PC_BLOCK)
+        standardPc.addComputerCase(ComputerCaseType.MINI_PC_BLOCK)
                 .addComponent(PartType.MOTHERBOARD)
                 .addComponent(PartType.CPU)
                 .addComponent(PartType.RAM_MODULES)

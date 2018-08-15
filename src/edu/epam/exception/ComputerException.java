@@ -1,5 +1,6 @@
 package edu.epam.exception;
 
+@Deprecated
 public class ComputerException extends Exception {
     private String message;
 

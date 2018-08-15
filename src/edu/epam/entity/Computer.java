@@ -46,7 +46,7 @@ public class Computer {
         this.computerCaseType = computerCaseType;
     }
 
-    void changeName(String updatedName) {
+    public void changeName(String updatedName) {
         this.computerName = updatedName;
     }
 

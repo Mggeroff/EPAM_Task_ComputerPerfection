@@ -1,26 +1,32 @@
 package edu.epam.entity;
 
-import java.time.LocalTime;
+import edu.epam.printer.CheckOutPrinter;
+import edu.epam.util.IdGenerator;
+
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
-import java.util.Random;
 
 public class Order {
-    public static final int MIN_ORDER_LENGTH = 10000;
-    public static final int MAX_ORDER_LENGTH = 100000;
     private static final String DELIMITER = "********************************";
     private final int orderNumber;
     private final int clientId;
     private Computer computer;
-    private LocalTime localTime;
     private List<Computer> computers = new ArrayList<>();
+
+    public Order(String computerName, int numberOfComputers) {
+        IdGenerator idGenerator = new IdGenerator();
+        this.clientId = idGenerator.generateClientId();
+        this.orderNumber = idGenerator.generateOrderId();
+        this.computer = new Computer(computerName, numberOfComputers, orderNumber);
+        addComputers(computer, numberOfComputers);
+    }
 
     public Order(int clientId, String computerName, int numberOfComputers) {
         this.clientId = clientId;
-        Random random = new Random();
-        orderNumber = MIN_ORDER_LENGTH + random.nextInt(MAX_ORDER_LENGTH - MIN_ORDER_LENGTH);
-        computer = new Computer(computerName, numberOfComputers, orderNumber);
+        IdGenerator idGenerator = new IdGenerator();
+        this.orderNumber = idGenerator.generateOrderId();
+        this.computer = new Computer(computerName, numberOfComputers, orderNumber);
         addComputers(computer, numberOfComputers);
     }
 
@@ -30,8 +36,8 @@ public class Order {
         }
     }
 
-    public Computer addComputerCase(ComputerCase computerCase) {
-        this.computer.setComputerCase(computerCase);
+    public Computer addComputerCase(ComputerCaseType computerCaseType) {
+        this.computer.setComputerCaseType(computerCaseType);
         return this.computer;
     }
 
@@ -40,9 +46,11 @@ public class Order {
     }
 
     public void changeNumberOfOrderedComputers(int newNumber) {
+        this.computer.changeAmount(newNumber);
     }
 
     public void changeComputerName(String computerName) {
+        this.computer.changeName(computerName);
     }
 
     public void showInfo() {

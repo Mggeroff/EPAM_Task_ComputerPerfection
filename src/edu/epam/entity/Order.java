@@ -3,7 +3,6 @@ package edu.epam.entity;
 import edu.epam.printer.CheckOutPrinter;
 import edu.epam.util.IdGenerator;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
@@ -13,8 +12,6 @@ public class Order {
     private final int orderNumber;
     private final int clientId;
     private Computer computer;
-    // TODO: Add local time to order.
-    private LocalTime localTime;
     private List<Computer> computers = new ArrayList<>();
 
     public Order(String computerName, int numberOfComputers) {

@@ -1,5 +1,7 @@
 package edu.epam.entity;
 
+import edu.epam.exception.OrderException;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +18,7 @@ public class Computer {
     private static final String VALIDATE_NAME = "^[a-zA-Z ]+$";
     private static final String DEFAULT_NAME = "Client ";
     private static final String DELIMITER = "--------------------------------";
+    private boolean isComputerCaseSet;
     private int price;
     private String computerName;
     private int numberOfComputers;
@@ -23,18 +26,23 @@ public class Computer {
     private ComputerCaseType computerCaseType;
 
     public Computer(String computerName, int numberOfComputers, int orderNumber) {
-        if (computerName.matches(VALIDATE_NAME) && computerName.length() <= MAX_SIZE && computerName.length() >= MIN_SIZE) {
+        computerName.replace("_", " ");
+        if (computerName.matches(VALIDATE_NAME) && computerName.length() <= MAX_SIZE && computerName.length() >= MIN_SIZE && !computerName.isEmpty()) {
             this.computerName = computerName;
         } else {
             this.computerName = DEFAULT_NAME + orderNumber;
         }
         this.numberOfComputers = numberOfComputers;
+        this.isComputerCaseSet = false;
     }
 
     public Computer addComponent(PartType component) {
-        if (components.size() > MAX_NUMBER_OF_COMPONENTS) {
-            // TODO: refactor this to throw exception when the limit is reached
-            logger.info("Too much components");
+        try {
+            if (components.size() > MAX_NUMBER_OF_COMPONENTS) {
+                throw new OrderException("Too much components");
+            }
+        } catch (OrderException e) {
+            logger.log(Level.FATAL, e.getMessage());
         }
         components.add(component);
         price += component.getPrice();
@@ -42,8 +50,11 @@ public class Computer {
     }
 
     protected void setComputerCaseType(ComputerCaseType computerCaseType) {
-        price += computerCaseType.getPrice();
-        this.computerCaseType = computerCaseType;
+        if (!isComputerCaseSet) {
+            price += computerCaseType.getPrice();
+            this.computerCaseType = computerCaseType;
+        }
+        isComputerCaseSet = true;
     }
 
     public void changeName(String updatedName) {

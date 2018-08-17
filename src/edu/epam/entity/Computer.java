@@ -83,7 +83,6 @@ public class Computer {
         }
     }
 
-
     public int getComputerPrice() {
         return price;
     }
@@ -95,7 +94,5 @@ public class Computer {
     public int getNumberOfComputers() {
         return numberOfComputers;
     }
-
-
 }
 

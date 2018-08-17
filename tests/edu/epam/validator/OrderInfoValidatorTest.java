@@ -5,7 +5,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class OrderInfoValidatorTest {
-    OrderInfoValidator orderInfoValidator = new OrderInfoValidator();
+    OrderInfoValidator validator = new OrderInfoValidator();
 
     @DataProvider(name = "dataForComputerNameValidator")
     public static Object[][] dataForComputerNameValidator() {
@@ -52,25 +52,25 @@ public class OrderInfoValidatorTest {
 
     @Test(dataProvider = "dataForCustomerIdValidator")
     public void testIsValidCustomerId(String data, boolean expectedResult) {
-        boolean result = orderInfoValidator.isValidCustomerId(data);
+        boolean result = validator.isValidCustomerId(data);
         Assert.assertEquals(result, expectedResult);
     }
 
     @Test(dataProvider = "dataForComputerNameValidator")
     public void testIsValidComputerName(String data, boolean expectedResult) {
-        boolean result = orderInfoValidator.isValidComputerName(data);
+        boolean result = validator.isValidComputerName(data);
         Assert.assertEquals(result, expectedResult);
     }
 
     @Test(dataProvider = "dataForComputerAmountValidator")
     public void testIsValidComputerAmount(String data, boolean expectedResult) {
-        boolean result = orderInfoValidator.isValidComputerAmount(data);
+        boolean result = validator.isValidComputerAmount(data);
         Assert.assertEquals(result, expectedResult);
     }
 
     @Test(dataProvider = "dataForComputerCaseSetValidator")
     public void testIsComputerCaseSet(String data, boolean expectedResult) {
-        boolean result = orderInfoValidator.isComputerCaseSet(data);
+        boolean result = validator.isComputerCaseSet(data);
         Assert.assertEquals(result, expectedResult);
     }
 }

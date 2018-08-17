@@ -41,5 +41,4 @@ public class Main {
             logger.info(computer.toString());
         }
     }
-
 }

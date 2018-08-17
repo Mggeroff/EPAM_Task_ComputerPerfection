@@ -25,5 +25,4 @@ public enum PartType {
     public String getPartName() {
         return partName;
     }
-
 }

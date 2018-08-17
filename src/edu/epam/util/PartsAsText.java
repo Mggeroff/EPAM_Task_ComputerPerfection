@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PartsAsText {
-
     private static final List<String> computerParts = createElementList(Arrays.asList(PartType.values()));
     private static final List<String> computerCases = createElementList(Arrays.asList(ComputerCaseType.values()));
 

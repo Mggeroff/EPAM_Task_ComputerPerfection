@@ -23,11 +23,10 @@ public class InvoiceReader {
     private static final String DEFAULT_FILE_PATH = "data/";
     private static final String DATA_DELIMITER = "\\s+";
     private static Logger logger = LogManager.getLogger();
-    OrderInfoValidator orderInfoValidator = new OrderInfoValidator();
+    OrderInfoValidator validator = new OrderInfoValidator();
 
     public List<Order> readOrderData(String fileName) {
         List<Order> orders = new ArrayList<>();
-
         try (BufferedReader reader = new BufferedReader(new FileReader(DEFAULT_FILE_PATH + fileName))) {
             String data;
             while ((data = reader.readLine()) != null) {
@@ -55,7 +54,7 @@ public class InvoiceReader {
         String[] computerParts = Arrays.copyOfRange(data, NUMBER_OF_COMPUTERS_POSITION + 1, data.length);
         int iterator = 1;
         do {
-            if (orderInfoValidator.isComputerCaseSet(computerParts[0])) {
+            if (validator.isComputerCaseSet(computerParts[0])) {
                 newOrder.addComputerCase(ComputerCaseType.valueOf(computerParts[0])).addComponent(PartType.valueOf(computerParts[iterator]));
                 iterator++;
             } else {
@@ -67,7 +66,7 @@ public class InvoiceReader {
     }
 
     private int findClientNumber(String[] data) throws OrderException {
-        if (orderInfoValidator.isValidCustomerId(data[CLIENT_NUMBER_POSITION])) {
+        if (validator.isValidCustomerId(data[CLIENT_NUMBER_POSITION])) {
             return Integer.parseInt(data[CLIENT_NUMBER_POSITION]);
         } else {
             throw new OrderException("Client Id is not found!");
@@ -75,7 +74,7 @@ public class InvoiceReader {
     }
 
     private String findComputerName(String[] data) {
-        if (orderInfoValidator.isValidComputerName(data[COMPUTER_NAME_POSITION])) {
+        if (validator.isValidComputerName(data[COMPUTER_NAME_POSITION])) {
             return data[COMPUTER_NAME_POSITION];
         } else {
             return "";
@@ -83,11 +82,10 @@ public class InvoiceReader {
     }
 
     private int findComputersAmount(String[] data) throws OrderException {
-        if (orderInfoValidator.isValidComputerAmount(data[NUMBER_OF_COMPUTERS_POSITION])) {
+        if (validator.isValidComputerAmount(data[NUMBER_OF_COMPUTERS_POSITION])) {
             return Integer.parseInt(data[NUMBER_OF_COMPUTERS_POSITION]);
         } else {
             throw new OrderException("Amount of computers is invalid!");
         }
     }
-
 }

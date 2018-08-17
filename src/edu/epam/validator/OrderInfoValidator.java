@@ -29,5 +29,4 @@ public class OrderInfoValidator {
     public boolean isComputerCaseSet(String computerCase) {
         return allCases.contains(computerCase);
     }
-
 }
